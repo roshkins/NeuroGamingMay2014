@@ -7,6 +7,7 @@
       </df>
       <in>EmotivSDK.rb</in>
       <in>esdll_headers.txt</in>
+      <in>main.rb</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -53,6 +54,8 @@
       <item path="esdll_headers.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ext/Emotiv.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="main.rb" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -9,6 +9,7 @@
       </df>
       <in>EmotivSDK.rb</in>
       <in>esdll_headers.txt</in>
+      <in>main.rb</in>
     </df>
     <itemPath>c_headers.txt</itemPath>
   </logicalFolder>
