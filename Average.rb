@@ -12,7 +12,7 @@ end
 
 def load_image(folder)
    #random generate number to pick random image
-   filepath = "Images/#{folder}/*.jpg";
+   filepath = "Images/#{folder}/*.*";
    @background_image = Gosu::Image.new(self,
       File.expand_path(Dir.glob(filepath).sample), true)
 end
