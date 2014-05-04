@@ -103,3 +103,4 @@ EmotivNative
 This has all the C bindings in it. You may use them by calling individual functions from the module. They have the same name as their correspondence from the C headers.
 
 #Warning, you will have to do your own garbage collection for some of the functions. 
+
