@@ -42,6 +42,7 @@ class GameWindow < Gosu::Window
         Signal.trap("INT"){exit}
         EmotivSDK::Engine.new("127.0.0.1", true) do |event|
             write.puts "meditation:(#{event.meditation_score},1)"
+            write.puts "focus:(#{event.cognitiv_action == :COG_LIFT ? event.cognitiv_action_power : 0 },1)"
             false
           end
         ""
@@ -50,17 +51,29 @@ class GameWindow < Gosu::Window
   end
   
   def update
-    total = 0
-    count = 0
+    med_total = 0
+    med_count = 0
     @read_sockets.each do |socket|
     response = socket.gets
       if /meditation:\(([0-9.]+),(\d+)\)/ =~ response
         my_match = response.match(/meditation:\(([0-9.]+),(\d+)\)/)
-        total += my_match[1].to_f
-        count += my_match[2].to_i
+        med_total += my_match[1].to_f
+        med_count += my_match[2].to_i
       end
     end
-    puts "Avg: #{total/count}" 
+    puts "Meditation Avg: #{med_total/med_count}" 
+    
+    focus_total = 0
+    focus_count = 0
+    @read_sockets.each do |socket|
+    response = socket.gets
+      if /focus:\(([0-9.]+),(\d+)\)/ =~ response
+        my_match = response.match(/focus:\(([0-9.]+),(\d+)\)/)
+        focus_total += my_match[1].to_f
+        focus_count += my_match[2].to_i
+      end
+    end
+    puts "Focus Avg: #{focus_total/focus_count}" 
     true
   end
   
