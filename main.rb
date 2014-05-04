@@ -1,9 +1,10 @@
 require "./EmotivSDK"
 require "gosu"
 require 'socket'
+require "./Average"
 
 class GameWindow < Gosu::Window
-  
+  include Draw
   def initialize
     super 640, 480, false
     self.caption = "Meditation Game"
@@ -61,24 +62,34 @@ class GameWindow < Gosu::Window
         med_count += my_match[2].to_i
       end
     end
-    puts "Meditation Avg: #{med_total/med_count}" 
+    med_avg = med_total/med_count 
     
-    focus_total = 0
-    focus_count = 0
+    @med_symb = if med_avg < 0.25
+      :Rocky
+    elsif med_avg < 0.5
+       :Moderate
+    elsif med_avg < 0.75
+      :Mild
+    else
+      :Calm
+    end
+    #puts "Meditation Avg: #{med_total/med_count}" 
+    
+    @focus_array = []
     @read_sockets.each do |socket|
     response = socket.gets
       if /focus:\(([0-9.]+),(\d+)\)/ =~ response
         my_match = response.match(/focus:\(([0-9.]+),(\d+)\)/)
-        focus_total += my_match[1].to_f
-        focus_count += my_match[2].to_i
+        focus_array << my_match[1].to_f
       end
     end
-    puts "Focus Avg: #{focus_total/focus_count}" 
+    #puts "Focus Avg: #{focus_total/focus_count}" 
     true
   end
   
   def draw
     @background_image.draw(0,0,0)
+    super self, @med_symb, @focus_array
   end
   
 end
