@@ -23,6 +23,6 @@
 *.hex
 
 # Images
-
+*.zip
 *.png
 *.jpg
