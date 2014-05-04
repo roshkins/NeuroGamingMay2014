@@ -20,34 +20,31 @@ class GameWindow < Gosu::Window
     @background_image = Gosu::Image.new(self, 
       File.expand_path("Images/Calm/noaa_boats_calm_fish0581.jpg"), true)
     @pids = []
+    game_proc = Proc.new do |event|
+            @total += event.meditation_score
+            @num += 1
+            false
+          end
     if ARGF.argv.length > 0
       ARGF.argv.each do |ipandport|
         ip, port = *(ipandport.split(":"))
         port = true if (port == "true" || port == "1726")
         port = false if (port == "false" || port == "3008" || port.nil?)
         @pids.push(fork do
-          EmotivSDK::Engine.new(ip, port) do |event|
-            @total += event.meditation_score
-            @num += 1
-            Signal.trap("INT"){exit}
-            false
-          end
+          Signal.trap("INT"){exit}
+          EmotivSDK::Engine.new(ip, port, &game_proc) 
         end)
       end
     else
       @pids.push(fork do
-          EmotivSDK::Engine.new("127.0.0.1", true) do |event|
-            @total += event.meditation_score
-            @num += 1
-            Signal.trap("INT"){exit}
-            false
-          end
+        Signal.trap("INT"){exit}  
+        EmotivSDK::Engine.new("127.0.0.1", true, &game_proc)
       end)
     end
   end
   
   def update
-    puts (@total || 0)/(@num || 1)
+    
   end
   
   def draw
