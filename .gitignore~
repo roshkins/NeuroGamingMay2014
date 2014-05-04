@@ -26,3 +26,7 @@
 *.zip
 *.png
 *.jpg
+
+nbproject
+
+ext
