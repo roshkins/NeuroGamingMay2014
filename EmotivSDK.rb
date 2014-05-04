@@ -319,6 +319,10 @@ module EmotivSDK
     end
     attr_reader :event_type, :emo_state
     
+    def meditation_score
+      @emo_meditation_score ||= self.ES_AffectivGetMeditationScore(@e_state)
+    end
+    
     def emo_time_from_start
       @emo_time_from_start ||= self.ES_GetTimeFromStart(@e_state)
     end
@@ -410,7 +414,7 @@ module EmotivSDK
     # =EmotivSDK initialize
     # Takes a boolean specifying if using an emulator, and a block that
     # gets passed a class dictating the event.
-    def initialize(emulator = false)
+    def initialize(ip = "127.0.0.1", emulator = false)
       e_event = self.EE_EmoEngineEventCreate
       e_state = self.EE_EmoStateCreate
       user_id = 0
@@ -418,12 +422,12 @@ module EmotivSDK
       
       
       if emulator      
-        if self.EE_EngineRemoteConnect("127.0.0.1", 1726, "Emotiv Systems-5") != \
+        if self.EE_EngineRemoteConnect(ip, 1726, "Emotiv Systems-5") != \
             EmotivNative::EDK_OK
           raise Exception.new, "Cannot connect to remote engine." 
         end
       else
-          if self.EE_EngineRemoteConnect("127.0.0.1", 3008, "Emotiv Systems-5") != EmotivNative::EDK_OK
+          if self.EE_EngineRemoteConnect(ip, 3008, "Emotiv Systems-5") != EmotivNative::EDK_OK
             raise Exception.new, "Cannot connect to engine."
           end
       end
@@ -446,7 +450,7 @@ module EmotivSDK
 end
 
 if __FILE__ == $0
-  EmotivSDK::Engine.new(false) do |event|
+  EmotivSDK::Engine.new("10.0.3.46",false) do |event|
     puts event.event_type
     puts event.emo_state
     puts event.emo_time_from_start
@@ -460,7 +464,7 @@ if __FILE__ == $0
     puts "Your upperface power level: #{event.upper_face_action_power}"
     puts "Your lowerface action is: #{event.lower_face_action}"
     puts "Your lowerface power level: #{event.lower_face_action_power}"
-
+    puts "Meditation score: #{event.meditation_score}"
     puts "Your cognitiv action is: #{event.cognitiv_action}"
   end
 
