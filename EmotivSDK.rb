@@ -467,5 +467,5 @@ if __FILE__ == $0
     puts "Meditation score: #{event.meditation_score}"
     puts "Your cognitiv action is: #{event.cognitiv_action}"
   end
-
+  
 end
