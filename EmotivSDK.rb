@@ -449,23 +449,23 @@ module EmotivSDK
   end
 end
 
-if __FILE__ == $0
-  EmotivSDK::Engine.new("10.0.3.46",false) do |event|
-    puts event.event_type
-    puts event.emo_state
-    puts event.emo_time_from_start
-
-    puts "You have #{event.blinked? ? '' : 'not '}blinked."
-    puts "You have #{event.left_winked? ? '' : 'not '}left winked."
-    puts "You have #{event.right_winked? ? '' : 'not '}right winked."
-    puts "You have #{event.looked_left? ? '' : 'not '}looked_left."
-    puts "You have #{event.looked_right? ? '' : 'not '}looked_right."
-    puts "Your upperface action is: #{event.upper_face_action}."
-    puts "Your upperface power level: #{event.upper_face_action_power}"
-    puts "Your lowerface action is: #{event.lower_face_action}"
-    puts "Your lowerface power level: #{event.lower_face_action_power}"
-    puts "Meditation score: #{event.meditation_score}"
-    puts "Your cognitiv action is: #{event.cognitiv_action}"
-  end
-  
-end
+#if __FILE__ == $0
+#  EmotivSDK::Engine.new("10.0.3.46",false) do |event|
+#    puts event.event_type
+#    puts event.emo_state
+#    puts event.emo_time_from_start
+#
+#    puts "You have #{event.blinked? ? '' : 'not '}blinked."
+#    puts "You have #{event.left_winked? ? '' : 'not '}left winked."
+#    puts "You have #{event.right_winked? ? '' : 'not '}right winked."
+#    puts "You have #{event.looked_left? ? '' : 'not '}looked_left."
+#    puts "You have #{event.looked_right? ? '' : 'not '}looked_right."
+#    puts "Your upperface action is: #{event.upper_face_action}."
+#    puts "Your upperface power level: #{event.upper_face_action_power}"
+#    puts "Your lowerface action is: #{event.lower_face_action}"
+#    puts "Your lowerface power level: #{event.lower_face_action_power}"
+#    puts "Meditation score: #{event.meditation_score}"
+#    puts "Your cognitiv action is: #{event.cognitiv_action}"
+#  end
+#  
+#end
